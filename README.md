@@ -3,3 +3,7 @@
  
 # Technologies used
  - Visual Basic for Applications (MS Power-Point Macros)
+
+# Snapshot of an example simulation
+
+![snapshot](snapshot.png)
