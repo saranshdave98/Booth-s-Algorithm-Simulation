@@ -1,5 +1,5 @@
 # Booth's Algorithm Simulation
- A basic step-by-step simulation of Booth's algorithm on 4-bit signed numbers using Power Point Macros.
+ A basic step-by-step simulation of Booth's algorithm on 4-bit signed numbers using MS-PowerPoint Macros.
 
 # Steps to run the project
 
@@ -13,7 +13,7 @@
  - **Step 3:** Execute "Booth Algorithm.ppsm" to finally run the simulation.
 
 # Technologies used
- - Visual Basic for Applications (MS Power-Point Macros)
+ - Visual Basic for Applications (MS-PowerPoint Macros)
 
 # Snapshot of an example simulation
 
