@@ -1,0 +1,403 @@
+Public cnt As Long
+Public a, q, qi, m, stepcnt, t, flag As Long
+Private Sub Label1_Click()
+    TextBox4.Text = ""
+    TextBox3.Text = ""
+    TextBox2.Text = ""
+    TextBox1.Text = ""
+    TextBox7.Text = "bin i/p"
+    TextBox6.Text = "bin i/p"
+    TextBox5.Text = ""
+    TextBox9.Text = ""
+    TextBox8.Text = ""
+    TextBox10.Text = ""
+    TextBox11.Text = "0"
+    t = 0
+    cnt = 0
+    flag = 0
+    stepcnt = 0
+End Sub
+
+Private Sub STEP_Click()
+    Dim i, ad, qd, qid, md As Long
+    Dim x As Long, bin As String
+    If TextBox7.Text = "bin i/p" Or TextBox6.Text = "bin i/p" Or TextBox6.Text = "" Or TextBox6.Text = "" Then
+        MsgBox ("Please insert the inputs first...")
+        Exit Sub
+    End If
+    For i = 3 To 0 Step -1
+        If Not ((((TextBox6.Value / 10 ^ i) Mod 10) = 0) Or (((TextBox6.Value / 10 ^ i) Mod 10) = 1)) Then
+            MsgBox ("Please insert binary inputs...")
+            Exit Sub
+        End If
+    Next
+    For i = 3 To 0 Step -1
+        If Not ((((TextBox7.Value / 10 ^ i) Mod 10) = 0) Or (((TextBox7.Value / 10 ^ i) Mod 10) = 1)) Then
+            MsgBox ("Please insert binary inputs...")
+            Exit Sub
+        End If
+    Next
+    If Not (stepcnt = 4) Then
+        a = Val(TextBox1.Text)
+        qi = Val(TextBox2.Text)
+        q = Val(TextBox3.Text)
+        m = Val(TextBox4.Text)
+        If cnt = 0 Then
+            cnt = cnt + 1
+            x = 0
+            For i = 3 To 0 Step -1
+                If (TextBox6.Value / (10 ^ i)) Mod 10 And 1 Then
+                    x = x + 2 ^ i
+                Else
+                    x = x + 0
+                End If
+            Next
+            If x < 8 Then
+                TextBox8.Value = x
+            Else
+                x = -(16 - x)
+                TextBox8.Value = x
+            End If
+            x = 0
+            For i = 3 To 0 Step -1
+                If (TextBox7.Value / (10 ^ i)) Mod 10 And 1 Then
+                    x = x + 2 ^ i
+                Else
+                    x = x + 0
+                End If
+            Next
+            If x < 8 Then
+                TextBox9.Value = x
+            Else
+                x = -(16 - x)
+                TextBox9.Value = x
+            End If
+            TextBox1.Text = "0000"
+            a = Val(TextBox1.Text)
+            TextBox2.Text = "0"
+            qi = Val(TextBox2.Text)
+            bin = ""
+            For i = 3 To 0 Step -1
+                If (TextBox6.Value / (10 ^ i)) Mod 10 And 1 Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+            Next
+            TextBox3.Text = bin
+            q = Val(TextBox3.Text)
+            bin = ""
+            For i = 3 To 0 Step -1
+                If (TextBox7.Value / (10 ^ i)) Mod 10 And 1 Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+            Next
+            TextBox4.Text = bin
+            m = Val(TextBox4.Text)
+        ElseIf ((q Mod 10 = 1) And (qi = 0)) Or (flag = 1) Then
+            a = Val(TextBox1.Text)
+            qi = Val(TextBox2.Text)
+            q = Val(TextBox3.Text)
+            m = Val(TextBox4.Text)
+            ad = 0
+            qp = 0
+            qid = 0
+            md = 0
+            cnt = cnt + 1
+            bin = ""
+            If flag = 0 Then
+                flag = 1
+                For i = 3 To 0 Step -1
+                    If (a / (10 ^ i)) Mod 10 And 1 Then
+                        ad = ad + 2 ^ i
+                    Else
+                        ad = ad + 0
+                    End If
+                Next
+                For i = 3 To 0 Step -1
+                    If (m / (10 ^ i)) Mod 10 And 1 Then
+                        md = md + 2 ^ i
+                    Else
+                        md = md + 0
+                    End If
+                Next
+                md = 16 - md
+                x = (ad + md) Mod 16
+                For i = 3 To 0 Step -1
+                    If x And (2 ^ i) Then
+                        bin = bin + "1"
+                    Else
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox1.Text = bin
+            Else
+                a = Val(TextBox1.Text)
+                qi = Val(TextBox2.Text)
+                q = Val(TextBox3.Text)
+                m = Val(TextBox4.Text)
+                ad = 0
+                qp = 0
+                qid = 0
+                md = 0
+                flag = 0
+                stepcnt = stepcnt + 1
+                If (((TextBox3.Value) Mod 10) And 1) Then
+                    TextBox2.Text = "1"
+                Else
+                    TextBox2.Text = "0"
+                End If
+                x = TextBox3.Value
+                If (((TextBox1.Value) Mod 10) And 1) Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+                For i = 3 To 1 Step -1
+                    If x / (10 ^ i) And 1 Then
+                        x = x Mod 10 ^ i
+                        bin = bin + "1"
+                    Else
+                        x = x Mod 10 ^ i
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox3.Text = bin
+                bin = ""
+                x = TextBox1.Value
+                If (x / 1000) And 1 Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+                For i = 3 To 1 Step -1
+                    If x / (10 ^ i) And 1 Then
+                        x = x Mod 10 ^ i
+                        bin = bin + "1"
+                    Else
+                        x = x Mod 10 ^ i
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox1.Text = bin
+            End If
+        ElseIf ((q Mod 10 = 0) And (qi = 1)) Or (flag = 1) Then
+            a = Val(TextBox1.Text)
+            qi = Val(TextBox2.Text)
+            q = Val(TextBox3.Text)
+            m = Val(TextBox4.Text)
+            ad = 0
+            qp = 0
+            qid = 0
+            md = 0
+            cnt = cnt + 1
+            bin = ""
+            If flag = 0 Then
+                flag = 1
+                For i = 3 To 0 Step -1
+                    If (a / (10 ^ i)) Mod 10 And 1 Then
+                        ad = ad + 2 ^ i
+                    Else
+                        ad = ad + 0
+                    End If
+                Next
+                For i = 3 To 0 Step -1
+                    If (m / (10 ^ i)) Mod 10 And 1 Then
+                        md = md + 2 ^ i
+                    Else
+                        md = md + 0
+                    End If
+                Next
+                x = (ad + md) Mod 16
+                For i = 3 To 0 Step -1
+                    If x And (2 ^ i) Then
+                        bin = bin + "1"
+                    Else
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox1.Text = bin
+            Else
+                a = Val(TextBox1.Text)
+                qi = Val(TextBox2.Text)
+                q = Val(TextBox3.Text)
+                m = Val(TextBox4.Text)
+                ad = 0
+                qp = 0
+                qid = 0
+                md = 0
+                flag = 0
+                stepcnt = stepcnt + 1
+                If (((TextBox3.Value) Mod 10) And 1) Then
+                    TextBox2.Text = "1"
+                Else
+                    TextBox2.Text = "0"
+                End If
+                x = TextBox3.Value
+                If (((TextBox1.Value) Mod 10) And 1) Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+                For i = 3 To 1 Step -1
+                    If x / (10 ^ i) And 1 Then
+                        x = x Mod 10 ^ i
+                        bin = bin + "1"
+                    Else
+                        x = x Mod 10 ^ i
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox3.Text = bin
+                bin = ""
+                x = TextBox1.Value
+                If (x / 1000) And 1 Then
+                    bin = bin + "1"
+                Else
+                    bin = bin + "0"
+                End If
+                For i = 3 To 1 Step -1
+                    If x / (10 ^ i) And 1 Then
+                        x = x Mod 10 ^ i
+                        bin = bin + "1"
+                    Else
+                        x = x Mod 10 ^ i
+                        bin = bin + "0"
+                    End If
+                Next
+                TextBox1.Text = bin
+            End If
+        Else
+            flag = 0
+            stepcnt = stepcnt + 1
+            cnt = cnt + 1
+            a = Val(TextBox1.Text)
+            qi = Val(TextBox2.Text)
+            q = Val(TextBox3.Text)
+            m = Val(TextBox4.Text)
+            bin = ""
+            ad = 0
+            qp = 0
+            qid = 0
+            md = 0
+            x = TextBox3.Value
+            If (((TextBox3.Value) Mod 10) And 1) Then
+                TextBox2.Text = "1"
+            Else
+                TextBox2.Text = "0"
+            End If
+            If (((TextBox1.Value) Mod 10) And 1) Then
+                bin = bin + "1"
+            Else
+                bin = bin + "0"
+            End If
+            For i = 3 To 1 Step -1
+                If x / (10 ^ i) And 1 Then
+                    x = x Mod 10 ^ i
+                    bin = bin + "1"
+                Else
+                    x = x Mod 10 ^ i
+                    bin = bin + "0"
+                End If
+            Next
+            TextBox3.Text = bin
+            bin = ""
+            x = TextBox1.Value
+            If (x / 1000) And 1 Then
+                bin = bin + "1"
+            Else
+                bin = bin + "0"
+            End If
+            For i = 3 To 1 Step -1
+                If x / (10 ^ i) And 1 Then
+                    x = x Mod 10 ^ i
+                    bin = bin + "1"
+                Else
+                    x = x Mod 10 ^ i
+                    bin = bin + "0"
+                End If
+            Next
+            TextBox1.Text = bin
+        End If
+    Else
+        If t = 0 Then
+            t = 1
+            cnt = cnt + 1
+            bin = TextBox1.Text + TextBox3.Text
+            TextBox5.Text = bin
+            x = 0
+            For i = 7 To 0 Step -1
+                If (Val(TextBox5.Text) / (10 ^ i)) Mod 10 And 1 Then
+                    x = x + 2 ^ i
+                Else
+                    x = x + 0
+                End If
+            Next
+            If x < 128 Then
+                TextBox10.Value = x
+            Else
+                x = -(256 - x)
+                TextBox10.Value = x
+            End If
+        Else
+        End If
+    End If
+    TextBox11.Value = cnt
+End Sub
+
+Private Sub TextBox1_Change()
+    TextBox6.MaxLength = 4
+    Dim i As Long
+End Sub
+
+Private Sub TextBox10_Change()
+    TextBox10.Enabled = False
+End Sub
+
+Private Sub TextBox11_Change()
+    TextBox11.Enabled = False
+End Sub
+
+Private Sub TextBox2_Change()
+    TextBox6.MaxLength = 4
+End Sub
+
+Private Sub TextBox3_Change()
+    TextBox6.MaxLength = 4
+End Sub
+
+Private Sub TextBox4_Change()
+    TextBox6.MaxLength = 4
+End Sub
+
+Private Sub TextBox5_Change()
+    TextBox5.MaxLength = 8
+    TextBox5.Enabled = False
+End Sub
+
+Private Sub TextBox6_Click()
+    TextBox4.Enabled = False
+    TextBox3.Enabled = False
+    TextBox2.Enabled = False
+    TextBox1.Enabled = False
+    TextBox6.MaxLength = 4
+    TextBox6.Text = ""
+End Sub
+
+Private Sub TextBox7_Change()
+    TextBox4.Enabled = False
+    TextBox3.Enabled = False
+    TextBox2.Enabled = False
+    TextBox1.Enabled = False
+    TextBox7.MaxLength = 4
+End Sub
+
+Private Sub TextBox8_Change()
+    TextBox8.Enabled = False
+End Sub
+
+Private Sub TextBox9_Change()
+    TextBox9.Enabled = False
+End Sub
