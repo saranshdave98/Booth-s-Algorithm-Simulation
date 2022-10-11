@@ -12,7 +12,7 @@
  
  - **Step 3:** Execute "Booth Algorithm.ppsm" to finally run the simulation.
 
-# Technologies used
+# Technologies Used
  - Visual Basic for Applications (MS-PowerPoint Macros)
 
 # Snapshot of an example simulation
